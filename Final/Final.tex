@@ -1,0 +1,1476 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Final}
+    
+    
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SalesJan2009.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}   Transaction\_date   Product Price Payment\_Type               Name  \textbackslash{}
+        0      1/2/09 6:17  Product1  1200   Mastercard           carolina   
+        1      1/2/09 4:53  Product1  1200         Visa             Betina   
+        2     1/2/09 13:08  Product1  1200   Mastercard  Federica e Andrea   
+        3     1/3/09 14:44  Product1  1200         Visa              Gouya   
+        4     1/4/09 12:56  Product2  3600         Visa            Gerd W    
+        
+                                   City     State         Country Account\_Created  \textbackslash{}
+        0                      Basildon   England  United Kingdom     1/2/09 6:00   
+        1  Parkville                           MO   United States     1/2/09 4:42   
+        2  Astoria                             OR   United States    1/1/09 16:21   
+        3                        Echuca  Victoria       Australia   9/25/05 21:13   
+        4  Cahaba Heights                      AL   United States  11/15/08 15:47   
+        
+             Last\_Login   Latitude   Longitude  
+        0   1/2/09 6:08  51.500000   -1.116667  
+        1   1/2/09 7:49  39.195000  -94.681940  
+        2  1/3/09 12:32  46.188060 -123.830000  
+        3  1/3/09 14:22 -36.133333  144.750000  
+        4  1/4/09 12:45  33.520560  -86.802500  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{b} \PY{o}{=} \PY{n}{data}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Product}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{b}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}          Transaction\_date Price Payment\_Type               Name  \textbackslash{}
+        Product                                                           
+        Product1      1/2/09 6:17  1200   Mastercard           carolina   
+        Product1      1/2/09 4:53  1200         Visa             Betina   
+        Product1     1/2/09 13:08  1200   Mastercard  Federica e Andrea   
+        Product1     1/3/09 14:44  1200         Visa              Gouya   
+        Product2     1/4/09 12:56  3600         Visa            Gerd W    
+        
+                                          City     State         Country  \textbackslash{}
+        Product                                                            
+        Product1                      Basildon   England  United Kingdom   
+        Product1  Parkville                           MO   United States   
+        Product1  Astoria                             OR   United States   
+        Product1                        Echuca  Victoria       Australia   
+        Product2  Cahaba Heights                      AL   United States   
+        
+                 Account\_Created    Last\_Login   Latitude   Longitude  
+        Product                                                        
+        Product1     1/2/09 6:00   1/2/09 6:08  51.500000   -1.116667  
+        Product1     1/2/09 4:42   1/2/09 7:49  39.195000  -94.681940  
+        Product1    1/1/09 16:21  1/3/09 12:32  46.188060 -123.830000  
+        Product1   9/25/05 21:13  1/3/09 14:22 -36.133333  144.750000  
+        Product2  11/15/08 15:47  1/4/09 12:45  33.520560  -86.802500  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{slices} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1200}\PY{p}{,}\PY{l+m+mi}{1200}\PY{p}{,}\PY{l+m+mi}{3600}\PY{p}{,}\PY{l+m+mi}{1200}\PY{p}{]}
+         \PY{n}{activities} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Product1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Product2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Product3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Product4}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{pie}\PY{p}{(}\PY{n}{slices}\PY{p}{,}
+                 \PY{n}{labels}\PY{o}{=}\PY{n}{activities}\PY{p}{,}
+                 \PY{n}{colors}\PY{o}{=}\PY{n}{cols}\PY{p}{,}
+                 \PY{n}{startangle}\PY{o}{=}\PY{l+m+mi}{360}\PY{p}{,}
+                 \PY{n}{shadow}\PY{o}{=} \PY{k+kc}{True}\PY{p}{,}
+                 \PY{n}{explode}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}
+                 \PY{n}{autopct}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}1.1f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Interesting Graph}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Check it out}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{data}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}          Latitude   Longitude
+         count  998.000000  998.000000
+         mean    39.015705  -41.337820
+         std     19.508572   67.389479
+         min    -41.465000 -159.485280
+         25\%     35.816944  -87.991670
+         50\%     42.320695  -73.730695
+         75\%     51.050000    4.916667
+         max     64.837780  174.766667
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{b}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}          Latitude   Longitude
+         count  998.000000  998.000000
+         mean    39.015705  -41.337820
+         std     19.508572   67.389479
+         min    -41.465000 -159.485280
+         25\%     35.816944  -87.991670
+         50\%     42.320695  -73.730695
+         75\%     51.050000    4.916667
+         max     64.837780  174.766667
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SacramentocrimeJanuary2006.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{data}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}           cdatetime                                address  district  \textbackslash{}
+         0       1/1/06 0:00                     3108 OCCIDENTAL DR         3   
+         1       1/1/06 0:00                    2082 EXPEDITION WAY         5   
+         2       1/1/06 0:00                             4 PALEN CT         2   
+         3       1/1/06 0:00                         22 BECKFORD CT         6   
+         4       1/1/06 0:00                       3421 AUBURN BLVD         2   
+         5       1/1/06 0:00                     5301 BONNIEMAE WAY         6   
+         6       1/1/06 0:00                          2217 16TH AVE         4   
+         7       1/1/06 0:00                              3547 P ST         3   
+         8       1/1/06 0:00                       3421 AUBURN BLVD         2   
+         9       1/1/06 0:00                      1326 HELMSMAN WAY         1   
+         10      1/1/06 0:00                     2315 STOCKTON BLVD         6   
+         11      1/1/06 0:00                           5112 63RD ST         6   
+         12      1/1/06 0:00                      6351 DRIFTWOOD ST         4   
+         13      1/1/06 0:00                   7721 COLLEGE TOWN DR         3   
+         14      1/1/06 0:00                        8460 ROVANA CIR         6   
+         15      1/1/06 0:00                          4856 11TH AVE         6   
+         16      1/1/06 0:00                           6033 69TH ST         6   
+         17      1/1/06 0:00                               547 L ST         3   
+         18      1/1/06 0:00                           3525 42ND ST         6   
+         19      1/1/06 0:00                        5641 DORSET WAY         4   
+         20      1/1/06 0:01                       5551 REXLEIGH CT         5   
+         21      1/1/06 0:01                         1896 ARDEN WAY         2   
+         22      1/1/06 0:01                    6168 RIVERSIDE BLVD         4   
+         23      1/1/06 0:01                        415 SEXTANT WAY         2   
+         24      1/1/06 0:01                            15 BASIN CT         5   
+         25      1/1/06 0:01                           3340 62ND ST         6   
+         26      1/1/06 0:01                      4280 DEER HILL DR         5   
+         27      1/1/06 0:01                            2814 5TH ST         4   
+         28      1/1/06 0:01                         1816 FLORIN RD         5   
+         29      1/1/06 0:01                          1260 BELL AVE         2   
+         {\ldots}             {\ldots}                                    {\ldots}       {\ldots}   
+         7554  1/31/06 21:42                     6125 STOCKTON BLVD         6   
+         7555  1/31/06 21:50                      6645 VALLEY HI DR         5   
+         7556  1/31/06 21:52            DIXIEANNE AVE / ERICKSON ST         2   
+         7557  1/31/06 22:00                     2400 DEL PASO BLVD         2   
+         7558  1/31/06 22:00                        8689 CARLIN AVE         5   
+         7559  1/31/06 22:00  23RD AVE / MARTIN LUTHER KING JR BLVD         6   
+         7560  1/31/06 22:00                     47TH ST / 14TH AVE         6   
+         7561  1/31/06 22:00                     BROADWAY / 42ND ST         6   
+         7562  1/31/06 22:04                         13TH ST / G ST         3   
+         7563  1/31/06 22:09                   34TH ST / TEMPLE AVE         6   
+         7564  1/31/06 22:14         STOCKTON BLVD / ELDER CREEK RD         6   
+         7565  1/31/06 22:15                           1225 48TH ST         3   
+         7566  1/31/06 22:20                           1416 18TH ST         3   
+         7567  1/31/06 22:30                             925 3RD ST         3   
+         7568  1/31/06 22:30                         16TH ST / Q ST         3   
+         7569  1/31/06 22:30                      34TH ST / 3RD AVE         6   
+         7570  1/31/06 22:30                           1856 3RD AVE         4   
+         7571  1/31/06 22:57                TAFT ST / EL CAMINO AVE         2   
+         7572  1/31/06 23:00                         X ST / 33RD ST         6   
+         7573  1/31/06 23:00                           3543 1ST AVE         6   
+         7574  1/31/06 23:00                         3651 BRANCH ST         2   
+         7575  1/31/06 23:00                     1857 DISCOVERY WAY         6   
+         7576  1/31/06 23:11               NATOMA WAY / ROANOKE AVE         2   
+         7577  1/31/06 23:27                     7897 LA RIVIERA DR         3   
+         7578  1/31/06 23:31                39TH ST / STOCKTON BLVD         6   
+         7579  1/31/06 23:36                         26TH ST / G ST         3   
+         7580  1/31/06 23:40                     4011 FREEPORT BLVD         4   
+         7581  1/31/06 23:41                         30TH ST / K ST         3   
+         7582  1/31/06 23:45                     5303 FRANKLIN BLVD         4   
+         7583  1/31/06 23:50      COBBLE COVE LN / COBBLE SHORES DR         4   
+         
+                     beat  grid                      crimedescr  ucr\_ncic\_code  \textbackslash{}
+         0     3C          1115   10851(A)VC TAKE VEH W/O OWNER           2404   
+         1     5A          1512      459 PC  BURGLARY RESIDENCE           2204   
+         2     2A           212   10851(A)VC TAKE VEH W/O OWNER           2404   
+         3     6C          1443    476 PC PASS FICTICIOUS CHECK           2501   
+         4     2A           508    459 PC  BURGLARY-UNSPECIFIED           2299   
+         5     6B          1084   530.5 PC USE PERSONAL ID INFO           2604   
+         6     4A           957        459 PC  BURGLARY VEHICLE           2299   
+         7     3C           853     484 PC   PETTY THEFT/INSIDE           2308   
+         8     2A           508       459 PC  BURGLARY BUSINESS           2203   
+         9     1B           444         1708 US   THEFT OF MAIL           2310   
+         10    6B          1005     ASSAULT WITH WEAPON - I RPT           7000   
+         11    6B          1088   530.5 PC USE PERSONAL ID INFO           2604   
+         12    4C          1261      SUSP PERS-NO CRIME - I RPT           7000   
+         13    3C           888   530.5 PC USE PERSONAL ID INFO           2604   
+         14    6C          1447    484G(B) PC ACCESS CARD FRAUD           2605   
+         15    6B          1054           487(A) PC GRAND THEFT           2303   
+         16    6C          1403                 TELEPEST -I RPT           7000   
+         17    3M           742       487(A) GRAND THEFT-INSIDE           2308   
+         18    6A          1034   530.5 PC USE PERSONAL ID INFO           2604   
+         19    4C          1225       484J PC PUBLISH CARD INFO           2605   
+         20    5C          1661        459 PC  BURGLARY VEHICLE           2299   
+         21    2C           628    484G(B) PC ACCESS CARD FRAUD           2605   
+         22    4C          1251              484 PC PETTY THEFT           2399   
+         23    2A           213        459 PC  BURGLARY VEHICLE           2299   
+         24    5C          1654                 TRAFFIC - I RPT           7000   
+         25    6B          1047    594(B)(1)PC  VANDALISM +\$400           2999   
+         26    5B          1616    484G(B) PC ACCESS CARD FRAUD           2605   
+         27    4A           923    484 PC  PETTY THEFT/ OUTSIDE           2309   
+         28    5A          1361              HARASSMENT - I RPT           7000   
+         29    2A           235              484 PC PETTY THEFT           2399   
+         {\ldots}          {\ldots}   {\ldots}                             {\ldots}            {\ldots}   
+         7554  6B          1421  368(C) CAUSE PAIN/INJ TO ELDER           1315   
+         7555  5C          1623  243(E)1 BATTERY NONCOHAB SPOUS           1315   
+         7556  2C           604   10851(A)VC TAKE VEH W/O OWNER           2404   
+         7557  2B           564    11359 HS POSS FOR SALE MARIJ           3560   
+         7558  5C          1653   10851(A)VC TAKE VEH W/O OWNER           2404   
+         7559  6A          1081   10851(A)VC TAKE VEH W/O OWNER           2404   
+         7560              1053  11378 HS POSS/SALE AMPHETAMINE           3571   
+         7561  6A          1015        647(B) PC   PROSTITUTION           4004   
+         7562  3A           725   12020(A)1) PROHIBITED FIREARM           5212   
+         7563  6A          1051    11377(A)HS POSS AMPHETAMINES           3572   
+         7564  6C          1421     TRAFFIC-ACCIDENT-NON INJURY           5400   
+         7565  3C           845   594(B)(2)(A) VANDALISM/ -\$400           2999   
+         7566  3B           766   594(B)(2)(A) VANDALISM/ -\$400           2999   
+         7567  3M           732  537(A)(1) DEFRAUD INKEEP/-\$400           2399   
+         7568  3A           766   10851(A)VC TAKE VEH W/O OWNER           2404   
+         7569  6A          1022        647(B) PC   PROSTITUTION           4004   
+         7570  4A           926     MISCELLANEOUS I RPT (ZMISC)           7000   
+         7571  2C           564     TRAFFIC-ACCIDENT-NON INJURY           5400   
+         7572  6A          1001   10851(A)VC TAKE VEH W/O OWNER           2404   
+         7573  6A          1013        459 PC  BURGLARY VEHICLE           2299   
+         7574  2A           513        459 PC  BURGLARY VEHICLE           2299   
+         7575  6B          1006    484 PC  PETTY THEFT/ OUTSIDE           2309   
+         7576  2A           516  10853 VC MALIC MISCHIEF TO VEH           2999   
+         7577  3C           888                20002(A) HIT/RUN           5401   
+         7578  6B          1005                 CASUALTY REPORT           7000   
+         7579  3B           728   594(B)(2)(A) VANDALISM/ -\$400           2999   
+         7580  4A           957       459 PC  BURGLARY BUSINESS           2203   
+         7581  3C           841         TRAFFIC-ACCIDENT INJURY           5400   
+         7582  4B           969         3056 PAROLE VIO - I RPT           7000   
+         7583  4C          1294     TRAFFIC-ACCIDENT-NON INJURY           5400   
+         
+                latitude   longitude  
+         0     38.550420 -121.391416  
+         1     38.473501 -121.490186  
+         2     38.657846 -121.462101  
+         3     38.506774 -121.426951  
+         4     38.637448 -121.384613  
+         5     38.526979 -121.451338  
+         6     38.537173 -121.487577  
+         7     38.564335 -121.461883  
+         8     38.637448 -121.384613  
+         9     38.609602 -121.491838  
+         10    38.554264 -121.454604  
+         11    38.528165 -121.431453  
+         12    38.510922 -121.548820  
+         13    38.556115 -121.414273  
+         14    38.503981 -121.392399  
+         15    38.541529 -121.449510  
+         16    38.516573 -121.423475  
+         17    38.581846 -121.501166  
+         18    38.542708 -121.457207  
+         19    38.524600 -121.520361  
+         20    38.446592 -121.442378  
+         21    38.596642 -121.423349  
+         22    38.515124 -121.529103  
+         23    38.656601 -121.456045  
+         24    38.442815 -121.409524  
+         25    38.543804 -121.433283  
+         26    38.471219 -121.454739  
+         27    38.556452 -121.512331  
+         28    38.495353 -121.496560  
+         29    38.647174 -121.437517  
+         {\ldots}         {\ldots}         {\ldots}  
+         7554  38.515466 -121.436251  
+         7555  38.471855 -121.428862  
+         7556  38.609299 -121.445035  
+         7557  38.611410 -121.447654  
+         7558  38.443162 -121.434981  
+         7559  38.532135 -121.464702  
+         7560  38.539429 -121.451456  
+         7561  38.546747 -121.457802  
+         7562  38.582452 -121.487787  
+         7563  38.539180 -121.470547  
+         7564  38.510505 -121.435864  
+         7565  38.564280 -121.444536  
+         7566  38.572365 -121.485030  
+         7567  38.583309 -121.502418  
+         7568  38.570370 -121.488567  
+         7569  38.551995 -121.469784  
+         7570  38.553461 -121.491734  
+         7571  38.611062 -121.438120  
+         7572  38.556343 -121.469392  
+         7573  38.553790 -121.466571  
+         7574  38.634445 -121.444168  
+         7575  38.556651 -121.447707  
+         7576  38.634588 -121.422174  
+         7577  38.557901 -121.410635  
+         7578  38.556639 -121.459745  
+         7579  38.577832 -121.470460  
+         7580  38.537591 -121.492591  
+         7581  38.572030 -121.467012  
+         7582  38.527187 -121.471248  
+         7583  38.479628 -121.528634  
+         
+         [7584 rows x 9 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{animation} \PY{k}{as} \PY{n+nn}{animation}
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{style}
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{style}
+         \PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fivethirtyeight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{animate}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{:}
+             \PY{n}{graph\PYZus{}data} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{example.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{read}\PY{p}{(}\PY{p}{)}
+             \PY{n}{lines} \PY{o}{=} \PY{n}{graph\PYZus{}data}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{xs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{ys} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{lines}\PY{p}{:}
+                 \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{line}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                     \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{line}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                     \PY{n}{xs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+                     \PY{n}{ys}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+             \PY{n}{ax1}\PY{o}{.}\PY{n}{clear}\PY{p}{(}\PY{p}{)}
+             \PY{n}{ax1}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{xs}\PY{p}{,} \PY{n}{ys}\PY{p}{)}
+         \PY{n}{ani} \PY{o}{=} \PY{n}{animation}\PY{o}{.}\PY{n}{FuncAnimation}\PY{p}{(}\PY{n}{fig}\PY{p}{,} \PY{n}{animate}\PY{p}{,} \PY{n}{interval}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}
+         \PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ggplot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{style}
+         \PY{n}{population\PYZus{}ages} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{22}\PY{p}{,}\PY{l+m+mi}{55}\PY{p}{,}\PY{l+m+mi}{62}\PY{p}{,}\PY{l+m+mi}{45}\PY{p}{,}\PY{l+m+mi}{21}\PY{p}{,}\PY{l+m+mi}{22}\PY{p}{,}\PY{l+m+mi}{34}\PY{p}{,}\PY{l+m+mi}{42}\PY{p}{,}\PY{l+m+mi}{42}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{99}\PY{p}{,}\PY{l+m+mi}{102}\PY{p}{,}\PY{l+m+mi}{110}\PY{p}{,}\PY{l+m+mi}{120}\PY{p}{,}\PY{l+m+mi}{121}\PY{p}{,}\PY{l+m+mi}{122}\PY{p}{,}\PY{l+m+mi}{130}\PY{p}{,}\PY{l+m+mi}{111}\PY{p}{,}\PY{l+m+mi}{115}\PY{p}{,}\PY{l+m+mi}{112}\PY{p}{,}\PY{l+m+mi}{80}\PY{p}{,}\PY{l+m+mi}{75}\PY{p}{,}\PY{l+m+mi}{65}\PY{p}{,}\PY{l+m+mi}{54}\PY{p}{,}\PY{l+m+mi}{44}\PY{p}{,}\PY{l+m+mi}{43}\PY{p}{,}\PY{l+m+mi}{42}\PY{p}{,}\PY{l+m+mi}{48}\PY{p}{]}
+         
+         \PY{n}{bins} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{40}\PY{p}{,}\PY{l+m+mi}{50}\PY{p}{,}\PY{l+m+mi}{60}\PY{p}{,}\PY{l+m+mi}{70}\PY{p}{,}\PY{l+m+mi}{80}\PY{p}{,}\PY{l+m+mi}{90}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{110}\PY{p}{,}\PY{l+m+mi}{120}\PY{p}{,}\PY{l+m+mi}{130}\PY{p}{]}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{population\PYZus{}ages}\PY{p}{,} \PY{n}{bins}\PY{p}{,} \PY{n}{histtype}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{rwidth}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Interesting Graph}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Check it out}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dark\PYZus{}background}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+No handles with labels found to put in legend.
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{days} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}
+         
+         \PY{n}{sleeping} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}
+         \PY{n}{eating} \PY{o}{=}   \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{working} \PY{o}{=}  \PY{p}{[}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}
+         \PY{n}{playing} \PY{o}{=}  \PY{p}{[}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{13}\PY{p}{]}
+         
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sleeping}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eating}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Working}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Playing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{stackplot}\PY{p}{(}\PY{n}{days}\PY{p}{,} \PY{n}{sleeping}\PY{p}{,}\PY{n}{eating}\PY{p}{,}\PY{n}{working}\PY{p}{,}\PY{n}{playing}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Interesting Graph}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Check it out}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{import} \PY{n}{imdb}
+        \PY{p}{(}\PY{n}{train\PYZus{}data}\PY{p}{,} \PY{n}{train\PYZus{}labels}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{n}{test\PYZus{}data}\PY{p}{,}\PY{n}{test\PYZus{}labels}\PY{p}{)}\PY{o}{=} \PY{n}{imdb}\PY{o}{.}\PY{n}{load\PYZus{}data}\PY{p}{(}\PY{n}{num\PYZus{}words}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{)}
+        \PY{n}{train\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Using TensorFlow backend.
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} [1,
+         14,
+         22,
+         16,
+         43,
+         530,
+         973,
+         1622,
+         1385,
+         65,
+         458,
+         4468,
+         66,
+         3941,
+         4,
+         173,
+         36,
+         256,
+         5,
+         25,
+         100,
+         43,
+         838,
+         112,
+         50,
+         670,
+         2,
+         9,
+         35,
+         480,
+         284,
+         5,
+         150,
+         4,
+         172,
+         112,
+         167,
+         2,
+         336,
+         385,
+         39,
+         4,
+         172,
+         4536,
+         1111,
+         17,
+         546,
+         38,
+         13,
+         447,
+         4,
+         192,
+         50,
+         16,
+         6,
+         147,
+         2025,
+         19,
+         14,
+         22,
+         4,
+         1920,
+         4613,
+         469,
+         4,
+         22,
+         71,
+         87,
+         12,
+         16,
+         43,
+         530,
+         38,
+         76,
+         15,
+         13,
+         1247,
+         4,
+         22,
+         17,
+         515,
+         17,
+         12,
+         16,
+         626,
+         18,
+         2,
+         5,
+         62,
+         386,
+         12,
+         8,
+         316,
+         8,
+         106,
+         5,
+         4,
+         2223,
+         5244,
+         16,
+         480,
+         66,
+         3785,
+         33,
+         4,
+         130,
+         12,
+         16,
+         38,
+         619,
+         5,
+         25,
+         124,
+         51,
+         36,
+         135,
+         48,
+         25,
+         1415,
+         33,
+         6,
+         22,
+         12,
+         215,
+         28,
+         77,
+         52,
+         5,
+         14,
+         407,
+         16,
+         82,
+         2,
+         8,
+         4,
+         107,
+         117,
+         5952,
+         15,
+         256,
+         4,
+         2,
+         7,
+         3766,
+         5,
+         723,
+         36,
+         71,
+         43,
+         530,
+         476,
+         26,
+         400,
+         317,
+         46,
+         7,
+         4,
+         2,
+         1029,
+         13,
+         104,
+         88,
+         4,
+         381,
+         15,
+         297,
+         98,
+         32,
+         2071,
+         56,
+         26,
+         141,
+         6,
+         194,
+         7486,
+         18,
+         4,
+         226,
+         22,
+         21,
+         134,
+         476,
+         26,
+         480,
+         5,
+         144,
+         30,
+         5535,
+         18,
+         51,
+         36,
+         28,
+         224,
+         92,
+         25,
+         104,
+         4,
+         226,
+         65,
+         16,
+         38,
+         1334,
+         88,
+         12,
+         16,
+         283,
+         5,
+         16,
+         4472,
+         113,
+         103,
+         32,
+         15,
+         16,
+         5345,
+         19,
+         178,
+         32]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{train\PYZus{}labels}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} 1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n+nb}{max}\PY{p}{(}\PY{p}{[}\PY{n+nb}{max} \PY{p}{(}\PY{n}{sequence}\PY{p}{)} \PY{k}{for} \PY{n}{sequence} \PY{o+ow}{in} \PY{n}{train\PYZus{}data}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} 9999
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{word\PYZus{}index} \PY{o}{=} \PY{n}{imdb}\PY{o}{.}\PY{n}{get\PYZus{}word\PYZus{}index}\PY{p}{(}\PY{p}{)}
+        \PY{n}{reverse\PYZus{}word\PYZus{}index} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{n}{value}\PY{p}{,} \PY{n}{key}\PY{p}{)} \PY{k}{for} \PY{p}{(}\PY{n}{key}\PY{p}{,} \PY{n}{value}\PY{p}{)} \PY{o+ow}{in} \PY{n}{word\PYZus{}index}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+        \PY{n}{decoded\PYZus{}review} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{reverse\PYZus{}word\PYZus{}index}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{i} \PY{o}{\PYZhy{}} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{?}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{train\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k}{def} \PY{n+nf}{vectorize\PYZus{}sequences}\PY{p}{(}\PY{n}{sequences}\PY{p}{,} \PY{n}{dimension}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{:}
+            \PY{n}{results} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{sequences}\PY{p}{)}\PY{p}{,} \PY{n}{dimension}\PY{p}{)}\PY{p}{)}
+            \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{sequence} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{sequences}\PY{p}{)}\PY{p}{:}
+                \PY{n}{results}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{sequence}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}
+            \PY{k}{return} \PY{n}{results}
+        \PY{n}{x\PYZus{}train} \PY{o}{=} \PY{n}{vectorize\PYZus{}sequences}\PY{p}{(}\PY{n}{train\PYZus{}data}\PY{p}{)}
+        \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{vectorize\PYZus{}sequences}\PY{p}{(}\PY{n}{test\PYZus{}data}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:}  \PY{n}{x\PYZus{}train}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} array([0., 1., 1., {\ldots}, 0., 0., 0.])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{train\PYZus{}labels}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{test\PYZus{}labels}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{float32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{from} \PY{n+nn}{keras} \PY{k}{import} \PY{n}{models}
+        \PY{k+kn}{from} \PY{n+nn}{keras} \PY{k}{import} \PY{n}{layers}
+        \PY{n}{model} \PY{o}{=} \PY{n}{models}\PY{o}{.}\PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{,}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+WARNING:tensorflow:From /Users/jonathanwallace/anaconda3/lib/python3.7/site-packages/tensorflow/python/framework/op\_def\_library.py:263: colocate\_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rmsprop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{binary\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{from} \PY{n+nn}{keras} \PY{k}{import} \PY{n}{optimizers}
+         \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{n}{optimizers}\PY{o}{.}\PY{n}{RMSprop}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}\PY{p}{,}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{binary\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{k+kn}{from} \PY{n+nn}{keras} \PY{k}{import} \PY{n}{losses}
+         \PY{k+kn}{from} \PY{n+nn}{keras} \PY{k}{import} \PY{n}{metrics}
+         
+         \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{n}{optimizers}\PY{o}{.}\PY{n}{RMSprop}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.001}\PY{p}{)}\PY{p}{,}\PY{n}{loss}\PY{o}{=}\PY{n}{losses}\PY{o}{.}\PY{n}{binary\PYZus{}crossentropy}\PY{p}{,}\PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{n}{metrics}\PY{o}{.}\PY{n}{binary\PYZus{}accuracy}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{x\PYZus{}val} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10000}\PY{p}{]}
+         \PY{n}{partial\PYZus{}x\PYZus{}train} \PY{o}{=} \PY{n}{x\PYZus{}train}\PY{p}{[}\PY{l+m+mi}{10000}\PY{p}{:}\PY{p}{]}
+         \PY{n}{y\PYZus{}val} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10000}\PY{p}{]}
+         \PY{n}{partial\PYZus{}y\PYZus{}train} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{l+m+mi}{10000}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rmsprop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{binary\PYZus{}crossentropy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{history} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{partial\PYZus{}x\PYZus{}train}\PY{p}{,}\PY{n}{partial\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,}\PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{512}\PY{p}{,}  \PY{n}{validation\PYZus{}data}\PY{o}{=}\PY{p}{(}\PY{n}{x\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+WARNING:tensorflow:From /Users/jonathanwallace/anaconda3/lib/python3.7/site-packages/tensorflow/python/ops/math\_ops.py:3066: to\_int32 (from tensorflow.python.ops.math\_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+Train on 15000 samples, validate on 10000 samples
+Epoch 1/10
+15000/15000 [==============================] - 5s 324us/step - loss: 0.4976 - acc: 0.7953 - val\_loss: 0.3717 - val\_acc: 0.8722
+Epoch 2/10
+15000/15000 [==============================] - 2s 126us/step - loss: 0.2958 - acc: 0.9045 - val\_loss: 0.2990 - val\_acc: 0.8906
+Epoch 3/10
+15000/15000 [==============================] - 2s 106us/step - loss: 0.2160 - acc: 0.9286 - val\_loss: 0.3087 - val\_acc: 0.8714
+Epoch 4/10
+15000/15000 [==============================] - 2s 107us/step - loss: 0.1742 - acc: 0.9433 - val\_loss: 0.2832 - val\_acc: 0.8840
+Epoch 5/10
+15000/15000 [==============================] - 2s 106us/step - loss: 0.1415 - acc: 0.9543 - val\_loss: 0.2863 - val\_acc: 0.8851
+Epoch 6/10
+15000/15000 [==============================] - 2s 106us/step - loss: 0.1143 - acc: 0.9653 - val\_loss: 0.3096 - val\_acc: 0.8810
+Epoch 7/10
+15000/15000 [==============================] - 2s 129us/step - loss: 0.0971 - acc: 0.9708 - val\_loss: 0.3146 - val\_acc: 0.8840
+Epoch 8/10
+15000/15000 [==============================] - 2s 110us/step - loss: 0.0803 - acc: 0.9765 - val\_loss: 0.3870 - val\_acc: 0.8659
+Epoch 9/10
+15000/15000 [==============================] - 2s 109us/step - loss: 0.0658 - acc: 0.9820 - val\_loss: 0.3649 - val\_acc: 0.8778
+Epoch 10/10
+15000/15000 [==============================] - 2s 108us/step - loss: 0.0554 - acc: 0.9849 - val\_loss: 0.3863 - val\_acc: 0.8790
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{history\PYZus{}dict} \PY{o}{=} \PY{n}{history}\PY{o}{.}\PY{n}{history}
+         \PY{n}{history\PYZus{}dict}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} dict\_keys(['val\_loss', 'val\_acc', 'loss', 'acc'])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{preprocessing}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{text\PYZus{}to\PYZus{}word\PYZus{}sequence}
+         \PY{n}{text\PYZus{}file} \PY{o}{=} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FinalProjectInputFile}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{lines} \PY{o}{=} \PY{n}{text\PYZus{}file}\PY{o}{.}\PY{n}{readlines}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{lines}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+["What you will be getting when you walk into an inevitably overstuffed movie theater is something singular that reflects our age in a way that none of the MCU films that preceded it have-indeed very few Hollywood spectacles ever have The only complaint about Avengers Endgame is that it raises the bar so high that there may well never be a superhero movie to match it What's missing from Endgame is the free play of imagination the liberation of speculation the meandering paths and loose ends that start in logic and lead to wonderThe MCU will go on and on but this chapter  and the American pragmatism vs American ideals bromance that drove it have well and truly come to their Excelsior Nuff said momentEndgame consists almost entirely of the downtime scenes that were always secretly everyones favorite parts of these movies anyway Its overdone and bombastic A fitting end in other words to a franchise cycle of insatiable commercial ambition and thundering creative swagger I will need to watch this again but this is my opinion right out of the gate This is a little empty in the villain stakes not a common issue for Marvel films The is fun but I felt they created various plot issues and multiple realities in the process I remember a time when films had a structure to leave everything on the table I will watch again once the hype has died down A true tour de force of a finale for the series Rating90 It has been eleven years and 21 films until this point and whether or not you have been a fan of each and every film or not its undeniable that what producer Kevin Feige has been spearheading all these years is unprecedented and will probably be at least another decade until something like this is even attempted again Even though Avengers Infinity War felt like every storyline was colliding last year Avengers Endgame is the true finale of what they are now calling the Infinity Saga Beginning with Iron Man in 2008 and finishing with Avengers Endgame in 2019 this is a franchise that was made for fans of this newfound genre in superhero filmmaking and Avengers Endgame is a near-perfect conclusion in every way Picking up shortly after the events of Avengers Infinity War and dont worry I wont be spoiling anything from this movie we meet the team at their lowest point in the entire franchise The first act of this film is really just about them coping but shimmers of hope begin to arise giving them ideas and possibilities for a new future going forward The journey this film takes you on is absolutely astounding and there are some moments that will have you thinking the franchise has officially peaked but I feel that fans have earned those moments for being invested through thing many films Theres honestly only so much to say without ruining the experience so Ill move on to some specifics here Robert Downey Jr has always been great as Tony Stark but due to the circumstances left by the previous film I truly don't think hes ever been as good on-screen as he is in this film He carries the emotional weight of the film on his shoulders and I just wanted to applaud every second he was on camera On top of that everyone from Karen Gillan Nebula getting more to do than she has ever done to Chris Evans truly earning back his characters name to even Jeremy Renner who hasnt exactly had many standout moments until now every cast member brings their all here and I could go on for days about how Avengers Endgame features the most devoted cast any of these films have seen I would also like to commend Scarlett Johansson as it has been years since Ive seen her this committed to a character Audiences will flock to this movie hoping for a lot of bigbudget spectacle and although there are some of the craziest sequences in the franchise thus far I have to admit that fans of drama will also probably appreciate this movie more than most of the films in the franchise The impact the previous film has on this movie is severe and it really shows throughout the first two acts From some great cinematography and new visuals weve yet to see until now this is the definition of a film that has it all Theres so much I would like to dive into here but Ill just say this is the definition of a movie that people dream up when watching a franchise Story threads are tied up nicely the spectacle is dialled up to a million the performances are probably the best that this franchise has ever seen and the humour is absolutely still present and wellbalanced with the drama in a way that feels needed for this heavy movie Overall Avengers Endgame isnt a perfect movie because really no film of this size can truly be perfect but this was one of the best theatregoing experiences Ive had in years This is a true finale that earns every second of its three hour run time Here's to a bright future for the Marvel Cinematic Universe This was an amazing tribute to all the Marvel movies that have come before a very emotional roller coaster full of both laughs and tears A must see This didnt need to be three hours long I appreciate many character development scenes and all the fan service but compared to Infinity War this movie falls really short This is the movie I have ever watched in life very emotional  interesting I love avengers Endgame"]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{file} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{lines}\PY{p}{:}
+             
+             \PY{n}{words} \PY{o}{=} \PY{n}{c}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{words}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}words = lines.split()}
+             \PY{c+c1}{\PYZsh{}for words in lines:}
+                 \PY{c+c1}{\PYZsh{}file.append(words)}
+             \PY{n}{file} \PY{o}{=} \PY{n}{words}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['What', 'you', 'will', 'be', 'getting', 'when', 'you', 'walk', 'into', 'an', 'inevitably', 'overstuffed', 'movie', 'theater', 'is', 'something', 'singular', 'that', 'reflects', 'our', 'age', 'in', 'a', 'way', 'that', 'none', 'of', 'the', 'MCU', 'films', 'that', 'preceded', 'it', 'have-indeed', 'very', 'few', 'Hollywood', 'spectacles', 'ever', 'have', 'The', 'only', 'complaint', 'about', 'Avengers', 'Endgame', 'is', 'that', 'it', 'raises', 'the', 'bar', 'so', 'high', 'that', 'there', 'may', 'well', 'never', 'be', 'a', 'superhero', 'movie', 'to', 'match', 'it', "What's", 'missing', 'from', 'Endgame', 'is', 'the', 'free', 'play', 'of', 'imagination', 'the', 'liberation', 'of', 'speculation', 'the', 'meandering', 'paths', 'and', 'loose', 'ends', 'that', 'start', 'in', 'logic', 'and', 'lead', 'to', 'wonderThe', 'MCU', 'will', 'go', 'on', 'and', 'on', 'but', 'this', 'chapter', '', 'and', 'the', 'American', 'pragmatism', 'vs', 'American', 'ideals', 'bromance', 'that', 'drove', 'it', 'have', 'well', 'and', 'truly', 'come', 'to', 'their', 'Excelsior', 'Nuff', 'said', 'momentEndgame', 'consists', 'almost', 'entirely', 'of', 'the', 'downtime', 'scenes', 'that', 'were', 'always', 'secretly', 'everyones', 'favorite', 'parts', 'of', 'these', 'movies', 'anyway', 'Its', 'overdone', 'and', 'bombastic', 'A', 'fitting', 'end', 'in', 'other', 'words', 'to', 'a', 'franchise', 'cycle', 'of', 'insatiable', 'commercial', 'ambition', 'and', 'thundering', 'creative', 'swagger', 'I', 'will', 'need', 'to', 'watch', 'this', 'again', 'but', 'this', 'is', 'my', 'opinion', 'right', 'out', 'of', 'the', 'gate', 'This', 'is', 'a', 'little', 'empty', 'in', 'the', 'villain', 'stakes', 'not', 'a', 'common', 'issue', 'for', 'Marvel', 'films', 'The', 'is', 'fun', 'but', 'I', 'felt', 'they', 'created', 'various', 'plot', 'issues', 'and', 'multiple', 'realities', 'in', 'the', 'process', 'I', 'remember', 'a', 'time', 'when', 'films', 'had', 'a', 'structure', 'to', 'leave', 'everything', 'on', 'the', 'table', 'I', 'will', 'watch', 'again', 'once', 'the', 'hype', 'has', 'died', 'down', 'A', 'true', 'tour', 'de', 'force', 'of', 'a', 'finale', 'for', 'the', 'series', 'Rating90', 'It', 'has', 'been', 'eleven', 'years', 'and', '21', 'films', 'until', 'this', 'point', 'and', 'whether', 'or', 'not', 'you', 'have', 'been', 'a', 'fan', 'of', 'each', 'and', 'every', 'film', 'or', 'not', 'its', 'undeniable', 'that', 'what', 'producer', 'Kevin', 'Feige', 'has', 'been', 'spearheading', 'all', 'these', 'years', 'is', 'unprecedented', 'and', 'will', 'probably', 'be', 'at', 'least', 'another', 'decade', 'until', 'something', 'like', 'this', 'is', 'even', 'attempted', 'again', 'Even', 'though', 'Avengers', 'Infinity', 'War', 'felt', 'like', 'every', 'storyline', 'was', 'colliding', 'last', 'year', 'Avengers', 'Endgame', 'is', 'the', 'true', 'finale', 'of', 'what', 'they', 'are', 'now', 'calling', 'the', 'Infinity', 'Saga', 'Beginning', 'with', 'Iron', 'Man', 'in', '2008', 'and', 'finishing', 'with', 'Avengers', 'Endgame', 'in', '2019', 'this', 'is', 'a', 'franchise', 'that', 'was', 'made', 'for', 'fans', 'of', 'this', 'newfound', 'genre', 'in', 'superhero', 'filmmaking', 'and', 'Avengers', 'Endgame', 'is', 'a', 'near-perfect', 'conclusion', 'in', 'every', 'way', 'Picking', 'up', 'shortly', 'after', 'the', 'events', 'of', 'Avengers', 'Infinity', 'War', 'and', 'dont', 'worry', 'I', 'wont', 'be', 'spoiling', 'anything', 'from', 'this', 'movie', 'we', 'meet', 'the', 'team', 'at', 'their', 'lowest', 'point', 'in', 'the', 'entire', 'franchise', 'The', 'first', 'act', 'of', 'this', 'film', 'is', 'really', 'just', 'about', 'them', 'coping', 'but', 'shimmers', 'of', 'hope', 'begin', 'to', 'arise', 'giving', 'them', 'ideas', 'and', 'possibilities', 'for', 'a', 'new', 'future', 'going', 'forward', 'The', 'journey', 'this', 'film', 'takes', 'you', 'on', 'is', 'absolutely', 'astounding', 'and', 'there', 'are', 'some', 'moments', 'that', 'will', 'have', 'you', 'thinking', 'the', 'franchise', 'has', 'officially', 'peaked', 'but', 'I', 'feel', 'that', 'fans', 'have', 'earned', 'those', 'moments', 'for', 'being', 'invested', 'through', 'thing', 'many', 'films', 'Theres', 'honestly', 'only', 'so', 'much', 'to', 'say', 'without', 'ruining', 'the', 'experience', 'so', 'Ill', 'move', 'on', 'to', 'some', 'specifics', 'here', 'Robert', 'Downey', 'Jr', 'has', 'always', 'been', 'great', 'as', 'Tony', 'Stark', 'but', 'due', 'to', 'the', 'circumstances', 'left', 'by', 'the', 'previous', 'film', 'I', 'truly', "don't", 'think', 'hes', 'ever', 'been', 'as', 'good', 'on-screen', 'as', 'he', 'is', 'in', 'this', 'film', 'He', 'carries', 'the', 'emotional', 'weight', 'of', 'the', 'film', 'on', 'his', 'shoulders', 'and', 'I', 'just', 'wanted', 'to', 'applaud', 'every', 'second', 'he', 'was', 'on', 'camera', 'On', 'top', 'of', 'that', 'everyone', 'from', 'Karen', 'Gillan', 'Nebula', 'getting', 'more', 'to', 'do', 'than', 'she', 'has', 'ever', 'done', 'to', 'Chris', 'Evans', 'truly', 'earning', 'back', 'his', 'characters', 'name', 'to', 'even', 'Jeremy', 'Renner', 'who', 'hasnt', 'exactly', 'had', 'many', 'standout', 'moments', 'until', 'now', 'every', 'cast', 'member', 'brings', 'their', 'all', 'here', 'and', 'I', 'could', 'go', 'on', 'for', 'days', 'about', 'how', 'Avengers', 'Endgame', 'features', 'the', 'most', 'devoted', 'cast', 'any', 'of', 'these', 'films', 'have', 'seen', 'I', 'would', 'also', 'like', 'to', 'commend', 'Scarlett', 'Johansson', 'as', 'it', 'has', 'been', 'years', 'since', 'Ive', 'seen', 'her', 'this', 'committed', 'to', 'a', 'character', 'Audiences', 'will', 'flock', 'to', 'this', 'movie', 'hoping', 'for', 'a', 'lot', 'of', 'bigbudget', 'spectacle', 'and', 'although', 'there', 'are', 'some', 'of', 'the', 'craziest', 'sequences', 'in', 'the', 'franchise', 'thus', 'far', 'I', 'have', 'to', 'admit', 'that', 'fans', 'of', 'drama', 'will', 'also', 'probably', 'appreciate', 'this', 'movie', 'more', 'than', 'most', 'of', 'the', 'films', 'in', 'the', 'franchise', 'The', 'impact', 'the', 'previous', 'film', 'has', 'on', 'this', 'movie', 'is', 'severe', 'and', 'it', 'really', 'shows', 'throughout', 'the', 'first', 'two', 'acts', 'From', 'some', 'great', 'cinematography', 'and', 'new', 'visuals', 'weve', 'yet', 'to', 'see', 'until', 'now', 'this', 'is', 'the', 'definition', 'of', 'a', 'film', 'that', 'has', 'it', 'all', 'Theres', 'so', 'much', 'I', 'would', 'like', 'to', 'dive', 'into', 'here', 'but', 'Ill', 'just', 'say', 'this', 'is', 'the', 'definition', 'of', 'a', 'movie', 'that', 'people', 'dream', 'up', 'when', 'watching', 'a', 'franchise', 'Story', 'threads', 'are', 'tied', 'up', 'nicely', 'the', 'spectacle', 'is', 'dialled', 'up', 'to', 'a', 'million', 'the', 'performances', 'are', 'probably', 'the', 'best', 'that', 'this', 'franchise', 'has', 'ever', 'seen', 'and', 'the', 'humour', 'is', 'absolutely', 'still', 'present', 'and', 'wellbalanced', 'with', 'the', 'drama', 'in', 'a', 'way', 'that', 'feels', 'needed', 'for', 'this', 'heavy', 'movie', 'Overall', 'Avengers', 'Endgame', 'isnt', 'a', 'perfect', 'movie', 'because', 'really', 'no', 'film', 'of', 'this', 'size', 'can', 'truly', 'be', 'perfect', 'but', 'this', 'was', 'one', 'of', 'the', 'best', 'theatregoing', 'experiences', 'Ive', 'had', 'in', 'years', 'This', 'is', 'a', 'true', 'finale', 'that', 'earns', 'every', 'second', 'of', 'its', 'three', 'hour', 'run', 'time', "Here's", 'to', 'a', 'bright', 'future', 'for', 'the', 'Marvel', 'Cinematic', 'Universe', 'This', 'was', 'an', 'amazing', 'tribute', 'to', 'all', 'the', 'Marvel', 'movies', 'that', 'have', 'come', 'before', 'a', 'very', 'emotional', 'roller', 'coaster', 'full', 'of', 'both', 'laughs', 'and', 'tears', 'A', 'must', 'see', 'This', 'didnt', 'need', 'to', 'be', 'three', 'hours', 'long', 'I', 'appreciate', 'many', 'character', 'development', 'scenes', 'and', 'all', 'the', 'fan', 'service', 'but', 'compared', 'to', 'Infinity', 'War', 'this', 'movie', 'falls', 'really', 'short', 'This', 'is', 'the', 'movie', 'I', 'have', 'ever', 'watched', 'in', 'life', 'very', 'emotional', '', 'interesting', 'I', 'love', 'avengers', 'Endgame']
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{file\PYZus{}size} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{file}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{file\PYZus{}size}\PY{p}{)}
+         \PY{n+nb}{type}\PY{p}{(}\PY{n}{file}\PY{p}{)}
+         \PY{n}{file}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{file}\PY{p}{)}
+         \PY{n+nb}{type}\PY{p}{(}\PY{n}{file}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+953
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} str
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{preprocessing}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{Tokenizer}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{preprocessing}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{hashing\PYZus{}trick}
+         \PY{n}{t}\PY{o}{=}\PY{n}{Tokenizer}\PY{p}{(}\PY{p}{)}
+         \PY{n}{t}\PY{o}{.}\PY{n}{fit\PYZus{}on\PYZus{}texts}\PY{p}{(}\PY{n}{file}\PY{p}{)}
+         
+         \PY{n+nb}{input} \PY{o}{=} \PY{n}{hashing\PYZus{}trick}\PY{p}{(}\PY{n}{file}\PY{p}{,}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{hash\PYZus{}function} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{md5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{encoded\PYZus{}docs} \PY{o}{=}  \PY{n}{t}\PY{o}{.}\PY{n}{texts\PYZus{}to\PYZus{}matrix}\PY{p}{(}\PY{n}{file}\PY{p}{,}\PY{n}{mode} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{encoded\PYZus{}docs}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[0. 0. 0. {\ldots} 0. 0. 0.]
+ [0. 0. 0. {\ldots} 0. 0. 0.]
+ [0. 0. 0. {\ldots} 0. 0. 0.]
+ {\ldots}
+ [0. 0. 0. {\ldots} 0. 0. 0.]
+ [0. 0. 0. {\ldots} 0. 0. 0.]
+ [0. 1. 0. {\ldots} 0. 0. 0.]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{word\PYZus{}index} \PY{o}{=} \PY{n}{imdb}\PY{o}{.}\PY{n}{get\PYZus{}word\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k}{def} \PY{n+nf}{vectorize\PYZus{}sequences}\PY{p}{(}\PY{n}{sequences}\PY{p}{,} \PY{n}{dimension}\PY{o}{=}\PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{:}
+             \PY{n}{results} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{sequences}\PY{p}{)}\PY{p}{,} \PY{n}{dimension}\PY{p}{)}\PY{p}{)}
+             \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{sequence} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{sequences}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{results}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{sequence}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.}
+             \PY{k}{return} \PY{n}{results}
+         
+         \PY{n}{x\PYZus{}test} \PY{o}{=} \PY{n}{vectorize\PYZus{}sequences}\PY{p}{(}\PY{n+nb}{input}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} array([[0.5677737 ],
+                [0.5307977 ],
+                [0.4005565 ],
+                [0.45358106]], dtype=float32)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{acc} \PY{o}{=} \PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{val\PYZus{}loss\PYZus{}values} \PY{o}{=} \PY{n}{history\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{loss\PYZus{}values} \PY{o}{=} \PY{n}{history\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{val\PYZus{}loss} \PY{o}{=} \PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{n}{epochs} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{acc}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{epochs}\PY{p}{,} \PY{n}{loss\PYZus{}values}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{epochs}\PY{p}{,} \PY{n}{val\PYZus{}loss\PYZus{}values}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training and validation loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epochs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{model} \PY{o}{=} \PY{n}{models}\PY{o}{.}\PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{,}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rmsprop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mae}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{512}\PY{p}{)}
+         \PY{n}{results} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 1/25
+25000/25000 [==============================] - 2s 85us/step - loss: 0.5942 - mean\_absolute\_error: 0.6259
+Epoch 2/25
+25000/25000 [==============================] - 2s 72us/step - loss: 0.2400 - mean\_absolute\_error: 0.4813
+Epoch 3/25
+25000/25000 [==============================] - 2s 72us/step - loss: 0.1451 - mean\_absolute\_error: 0.3404
+Epoch 4/25
+25000/25000 [==============================] - 2s 72us/step - loss: 0.0883 - mean\_absolute\_error: 0.2287
+Epoch 5/25
+25000/25000 [==============================] - 2s 74us/step - loss: 0.0739 - mean\_absolute\_error: 0.1946
+Epoch 6/25
+25000/25000 [==============================] - 2s 82us/step - loss: 0.0652 - mean\_absolute\_error: 0.1758
+Epoch 7/25
+25000/25000 [==============================] - 2s 81us/step - loss: 0.0593 - mean\_absolute\_error: 0.1625
+Epoch 8/25
+25000/25000 [==============================] - 2s 73us/step - loss: 0.0546 - mean\_absolute\_error: 0.1529
+Epoch 9/25
+25000/25000 [==============================] - 2s 74us/step - loss: 0.0509 - mean\_absolute\_error: 0.1450
+Epoch 10/25
+25000/25000 [==============================] - 2s 73us/step - loss: 0.0476 - mean\_absolute\_error: 0.1382
+Epoch 11/25
+25000/25000 [==============================] - 2s 72us/step - loss: 0.0450 - mean\_absolute\_error: 0.1324
+Epoch 12/25
+25000/25000 [==============================] - 2s 74us/step - loss: 0.0426 - mean\_absolute\_error: 0.1272
+Epoch 13/25
+25000/25000 [==============================] - 2s 72us/step - loss: 0.0402 - mean\_absolute\_error: 0.1223
+Epoch 14/25
+25000/25000 [==============================] - 2s 73us/step - loss: 0.0385 - mean\_absolute\_error: 0.1185
+Epoch 15/25
+25000/25000 [==============================] - 2s 75us/step - loss: 0.0366 - mean\_absolute\_error: 0.1142
+Epoch 16/25
+25000/25000 [==============================] - 2s 74us/step - loss: 0.0347 - mean\_absolute\_error: 0.1103
+Epoch 17/25
+25000/25000 [==============================] - 2s 77us/step - loss: 0.0334 - mean\_absolute\_error: 0.1073
+Epoch 18/25
+25000/25000 [==============================] - 2s 75us/step - loss: 0.0320 - mean\_absolute\_error: 0.1039
+Epoch 19/25
+25000/25000 [==============================] - 2s 72us/step - loss: 0.0309 - mean\_absolute\_error: 0.1012
+Epoch 20/25
+25000/25000 [==============================] - 2s 72us/step - loss: 0.0295 - mean\_absolute\_error: 0.0986
+Epoch 21/25
+25000/25000 [==============================] - 2s 71us/step - loss: 0.0286 - mean\_absolute\_error: 0.0961
+Epoch 22/25
+25000/25000 [==============================] - 2s 71us/step - loss: 0.0274 - mean\_absolute\_error: 0.0933
+Epoch 23/25
+25000/25000 [==============================] - 2s 77us/step - loss: 0.0262 - mean\_absolute\_error: 0.0907
+Epoch 24/25
+25000/25000 [==============================] - 2s 72us/step - loss: 0.0255 - mean\_absolute\_error: 0.0890
+Epoch 25/25
+25000/25000 [==============================] - 2s 71us/step - loss: 0.0243 - mean\_absolute\_error: 0.0859
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        ValueError                                Traceback (most recent call last)
+
+        <ipython-input-26-26b359799dab> in <module>
+          7 model.compile(optimizer='rmsprop',loss='mse',metrics=['mae'])
+          8 model.fit(x\_train, y\_train, epochs=25, batch\_size=512)
+    ----> 9 results = model.evaluate(x\_test, y\_test)
+    
+
+        \textasciitilde{}/anaconda3/lib/python3.7/site-packages/keras/engine/training.py in evaluate(self, x, y, batch\_size, verbose, sample\_weight, steps)
+       1100             x, y,
+       1101             sample\_weight=sample\_weight,
+    -> 1102             batch\_size=batch\_size)
+       1103         \# Prepare inputs, delegate logic to `test\_loop`.
+       1104         if self.\_uses\_dynamic\_learning\_phase():
+
+
+        \textasciitilde{}/anaconda3/lib/python3.7/site-packages/keras/engine/training.py in \_standardize\_user\_data(self, x, y, sample\_weight, class\_weight, check\_array\_lengths, batch\_size)
+        802             ]
+        803             \# Check that all arrays have the same length.
+    --> 804             check\_array\_length\_consistency(x, y, sample\_weights)
+        805             if self.\_is\_graph\_network:
+        806                 \# Additional checks to avoid users mistakenly
+
+
+        \textasciitilde{}/anaconda3/lib/python3.7/site-packages/keras/engine/training\_utils.py in check\_array\_length\_consistency(inputs, targets, weights)
+        235                          'the same number of samples as target arrays. '
+        236                          'Found ' + str(list(set\_x)[0]) + ' input samples '
+    --> 237                          'and ' + str(list(set\_y)[0]) + ' target samples.')
+        238     if len(set\_w) > 1:
+        239         raise ValueError('All sample\_weight arrays should have '
+
+
+        ValueError: Input arrays should have the same number of samples as target arrays. Found 4 input samples and 25000 target samples.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{acc} \PY{o}{=} \PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{val\PYZus{}loss\PYZus{}values} \PY{o}{=} \PY{n}{history\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{loss\PYZus{}values} \PY{o}{=} \PY{n}{history\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{val\PYZus{}loss} \PY{o}{=} \PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{n}{epochs} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{acc}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{epochs}\PY{p}{,} \PY{n}{loss\PYZus{}values}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{epochs}\PY{p}{,} \PY{n}{val\PYZus{}loss\PYZus{}values}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training and validation loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epochs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{clf}\PY{p}{(}\PY{p}{)}
+         \PY{n}{acc\PYZus{}values} \PY{o}{=} \PY{n}{history\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+         \PY{n}{val\PYZus{}acc\PYZus{}values} \PY{o}{=} \PY{n}{history\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{epochs}\PY{p}{,} \PY{n}{acc}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{epochs}\PY{p}{,} \PY{n}{val\PYZus{}acc\PYZus{}values}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation acc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Training and validation accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epochs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{model} \PY{o}{=} \PY{n}{models}\PY{o}{.}\PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{,}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{layers}\PY{o}{.}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         
+         
+         \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rmsprop}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mae}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{x\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{512}\PY{p}{)}
+         \PY{n}{results} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{evaluate}\PY{p}{(}\PY{n}{x\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch 1/40
+25000/25000 [==============================] - 2s 86us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 2/40
+25000/25000 [==============================] - 2s 74us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 3/40
+25000/25000 [==============================] - 2s 71us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 4/40
+25000/25000 [==============================] - 2s 70us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 5/40
+25000/25000 [==============================] - 2s 70us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 6/40
+25000/25000 [==============================] - 2s 71us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 7/40
+25000/25000 [==============================] - 2s 74us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 8/40
+25000/25000 [==============================] - 2s 74us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 9/40
+25000/25000 [==============================] - 2s 71us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 10/40
+25000/25000 [==============================] - 2s 70us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 11/40
+25000/25000 [==============================] - 2s 71us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 12/40
+25000/25000 [==============================] - 2s 71us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 13/40
+25000/25000 [==============================] - 2s 77us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 14/40
+25000/25000 [==============================] - 2s 88us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 15/40
+25000/25000 [==============================] - 2s 75us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 16/40
+25000/25000 [==============================] - 2s 74us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 17/40
+25000/25000 [==============================] - 2s 82us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 18/40
+25000/25000 [==============================] - 2s 95us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 19/40
+25000/25000 [==============================] - 2s 97us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 20/40
+25000/25000 [==============================] - 2s 91us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 21/40
+25000/25000 [==============================] - 2s 71us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 22/40
+25000/25000 [==============================] - 2s 72us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 23/40
+25000/25000 [==============================] - 2s 72us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 24/40
+25000/25000 [==============================] - 2s 75us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 25/40
+25000/25000 [==============================] - 2s 70us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 26/40
+25000/25000 [==============================] - 2s 70us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 27/40
+25000/25000 [==============================] - 2s 70us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 28/40
+25000/25000 [==============================] - 2s 70us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 29/40
+25000/25000 [==============================] - 2s 72us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 30/40
+25000/25000 [==============================] - 2s 73us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 31/40
+25000/25000 [==============================] - 2s 70us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 32/40
+25000/25000 [==============================] - 2s 70us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 33/40
+25000/25000 [==============================] - 2s 69us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 34/40
+25000/25000 [==============================] - 2s 70us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 35/40
+25000/25000 [==============================] - 2s 70us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 36/40
+25000/25000 [==============================] - 2s 70us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 37/40
+25000/25000 [==============================] - 2s 70us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 38/40
+25000/25000 [==============================] - 2s 70us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 39/40
+25000/25000 [==============================] - 2s 70us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+Epoch 40/40
+25000/25000 [==============================] - 2s 70us/step - loss: 0.5000 - mean\_absolute\_error: 0.5000
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        ValueError                                Traceback (most recent call last)
+
+        <ipython-input-29-cf2e6535a936> in <module>
+          7 model.compile(optimizer='rmsprop',loss='mse',metrics=['mae'])
+          8 model.fit(x\_train, y\_train, epochs=40, batch\_size=512)
+    ----> 9 results = model.evaluate(x\_test, y\_test)
+    
+
+        \textasciitilde{}/anaconda3/lib/python3.7/site-packages/keras/engine/training.py in evaluate(self, x, y, batch\_size, verbose, sample\_weight, steps)
+       1100             x, y,
+       1101             sample\_weight=sample\_weight,
+    -> 1102             batch\_size=batch\_size)
+       1103         \# Prepare inputs, delegate logic to `test\_loop`.
+       1104         if self.\_uses\_dynamic\_learning\_phase():
+
+
+        \textasciitilde{}/anaconda3/lib/python3.7/site-packages/keras/engine/training.py in \_standardize\_user\_data(self, x, y, sample\_weight, class\_weight, check\_array\_lengths, batch\_size)
+        802             ]
+        803             \# Check that all arrays have the same length.
+    --> 804             check\_array\_length\_consistency(x, y, sample\_weights)
+        805             if self.\_is\_graph\_network:
+        806                 \# Additional checks to avoid users mistakenly
+
+
+        \textasciitilde{}/anaconda3/lib/python3.7/site-packages/keras/engine/training\_utils.py in check\_array\_length\_consistency(inputs, targets, weights)
+        235                          'the same number of samples as target arrays. '
+        236                          'Found ' + str(list(set\_x)[0]) + ' input samples '
+    --> 237                          'and ' + str(list(set\_y)[0]) + ' target samples.')
+        238     if len(set\_w) > 1:
+        239         raise ValueError('All sample\_weight arrays should have '
+
+
+        ValueError: Input arrays should have the same number of samples as target arrays. Found 4 input samples and 25000 target samples.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
